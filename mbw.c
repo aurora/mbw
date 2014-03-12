@@ -31,6 +31,13 @@
 /* version number */
 #define VERSION "1.4"
 
+/* mempcpy is a GNU extension which is not available on OSX. */
+#ifdef __APPLE__
+void* mempcpy(void* dst, const void* src, size_t len) {
+    return (char*)memcpy(dst, src, len) + len;
+}
+#endif
+    
 /*
  * MBW memory bandwidth benchmark
  *
